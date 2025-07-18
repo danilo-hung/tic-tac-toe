@@ -14,16 +14,14 @@ export default function Player({ name, symbol }: PlayerProps) {
  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
   setEditedName(e.target.value);
  }
+ let playerName = <span className="player-name">{editedName}</span>;
+ if (isEditing) {
+  playerName = <input required type="text" value={editedName} onChange={handleChange} />
+ }
  return (
   <li>
    <span className='player'>
-    {
-     isEditing ? (
-      <input type="text" value={editedName} onChange={handleChange} name="" id="" />
-     ) : (
-      <span className="player-name">{editedName}</span>
-     )
-    }
+    {playerName}
     <span className="player-symbol">{symbol}</span>
    </span>
    <button onClick={handleEditClick}>{isEditing ? 'Save' : 'Edit'}</button>
