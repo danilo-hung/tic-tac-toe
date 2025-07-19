@@ -1,5 +1,5 @@
-# React Note: Why use `setState(prev => !prev)` instead of `setState(!state)` -  為什麼使用 `setState(prev => !prev)` 而不是 `setState(!state)`
-
+# 為什麼使用 `setState(prev => !prev)` 而不是 `setState(!state)`
+> React Note: Why use `setState(prev => !prev)` instead of `setState(!state)` -  
 ## 📌 重點說明 | Key Point
 
 在 React 中更新 state 時，應優先使用「函式型更新法（functional update）」，特別是當新的 state 依賴於前一個 state 時。  
