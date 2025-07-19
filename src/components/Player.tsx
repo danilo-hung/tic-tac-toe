@@ -2,10 +2,11 @@ import { useState } from 'react';
 
 interface PlayerProps {
  name: string
- symbol: string
+ symbol: 'O' | 'X'
+ isActive: boolean
 }
 
-export default function Player({ name, symbol }: PlayerProps) {
+export default function Player({ name, symbol, isActive }: PlayerProps) {
  const [isEditing, setIsEditing] = useState(false);
  const [editedName, setEditedName] = useState(name);
  const handleEditClick = () => {
@@ -19,7 +20,7 @@ export default function Player({ name, symbol }: PlayerProps) {
   playerName = <input required type="text" value={editedName} onChange={handleChange} />
  }
  return (
-  <li>
+  <li className={isActive ? 'active' : undefined}>
    <span className='player'>
     {playerName}
     <span className="player-symbol">{symbol}</span>
