@@ -1,8 +1,6 @@
-import { useState } from 'react';
-
 interface GameBoardProps {
- onSelectSquare: () => void,
- activePlayerSymbol: 'O' | 'X'
+ onSelectSquare: (rowIndex: number, colIndex: number) => void,
+ turns: { square: { rowIndex: number, colIndex: number }, player: 'X' | 'O' }[]
 }
 
 const initialGameBoard: (null | 'X' | 'O')[][] = [
@@ -11,20 +9,13 @@ const initialGameBoard: (null | 'X' | 'O')[][] = [
  [null, null, null]
 ]
 
-export default function GameBoard({ onSelectSquare, activePlayerSymbol }: GameBoardProps) {
+export default function GameBoard({ onSelectSquare, turns }: GameBoardProps) {
 
- const [gameBoard, setGameBoard] = useState(initialGameBoard);
- const handleSelectedSquare = (rowIndex: number, colIndex: number) => {
-  setGameBoard((prev) => {
-   const updatedGameBoard = [...prev.map(innerArr => [...innerArr])]
-   if (updatedGameBoard[rowIndex][colIndex] === null) {
-    updatedGameBoard[rowIndex][colIndex] = activePlayerSymbol
-   }
+ const gameBoard = initialGameBoard.map(row => [...row]);
 
-   return updatedGameBoard
-  })
-  onSelectSquare()
- };
+ turns.forEach(turn => {
+  gameBoard[turn.square.rowIndex][turn.square.colIndex] = turn.player;
+ })
 
  return (
   <ol id="game-board">
@@ -33,7 +24,7 @@ export default function GameBoard({ onSelectSquare, activePlayerSymbol }: GameBo
      <ol>
       {row.map((col, colIndex) => (
        <li key={colIndex}>
-        <button onClick={() => { handleSelectedSquare(rowIndex, colIndex) }}>{col}</button>
+        <button onClick={() => { onSelectSquare(rowIndex, colIndex) }}>{col}</button>
        </li>
       ))}
      </ol>
