@@ -1,21 +1,10 @@
 interface GameBoardProps {
  onSelectSquare: (rowIndex: number, colIndex: number) => void,
- turns: { square: { rowIndex: number, colIndex: number }, player: 'X' | 'O' }[]
+ gameBoard: ("X" | "O" | null)[][]
 }
 
-const initialGameBoard: (null | 'X' | 'O')[][] = [
- [null, null, null],
- [null, null, null],
- [null, null, null]
-]
 
-export default function GameBoard({ onSelectSquare, turns }: GameBoardProps) {
-
- const gameBoard = initialGameBoard.map(row => [...row]);
-
- turns.forEach(turn => {
-  gameBoard[turn.square.rowIndex][turn.square.colIndex] = turn.player;
- })
+export default function GameBoard({ onSelectSquare, gameBoard }: GameBoardProps) {
 
  return (
   <ol id="game-board">
@@ -24,7 +13,9 @@ export default function GameBoard({ onSelectSquare, turns }: GameBoardProps) {
      <ol>
       {row.map((col, colIndex) => (
        <li key={colIndex}>
-        <button onClick={() => { onSelectSquare(rowIndex, colIndex) }}>{col}</button>
+        <button disabled={col !== null} onClick={() => { onSelectSquare(rowIndex, colIndex) }}>
+         {col}
+        </button>
        </li>
       ))}
      </ol>
