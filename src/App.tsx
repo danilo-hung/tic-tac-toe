@@ -4,6 +4,15 @@ import GameBoard from './components/GameBoard'
 import Log from './components/Log'
 import GameOver from './components/GameOver'
 import { WINNING_COMBINATIONS } from './util/winning-comination'
+import bgImage from './assets/bg-pattern-dark.png';
+import logo from './assets/game-logo.png'
+
+const appStyle = {
+ background: `radial-gradient(circle at top, rgba(241, 210, 70, 0.98), rgba(250, 176, 103, 0.87)), url(${bgImage})`,
+ backgroundRepeat: 'repeat',
+ backgroundSize: '100% 100%, 30% 30%, 100% 100%',
+ minHeight: '110rem'
+};
 
 interface GameTurn { square: { rowIndex: number, colIndex: number }, player: 'X' | 'O' }
 
@@ -78,9 +87,9 @@ function App() {
  }
 
  return (
-  <main>
+  <main style={appStyle}>
    <header>
-    <img src="public/game-logo.png" alt="" />
+    <img src={logo} alt="" />
     <h1>Tic Tac Toe</h1>
    </header>
    <div id="game-container">
